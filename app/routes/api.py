@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 api_bp = Blueprint('api', __name__)
 
 
-@api_bp.route("/get")
+@api_bp.route("/ip")
 def check_ip():
     """Check outbound IP to verify proxy is active"""
     import requests as req
