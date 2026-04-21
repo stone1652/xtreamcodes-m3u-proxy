@@ -1,3 +1,25 @@
+async function checkProxy() {
+    const btn = document.getElementById('proxyBtn');
+    const result = document.getElementById('proxyResult');
+    btn.disabled = true;
+    result.textContent = 'Checking...';
+    try {
+        const res = await fetch('/ip');
+        const data = await res.json();
+        if (data.ip) {
+            result.textContent = `IP: ${data.ip}${data.proxy ? ` via ${data.proxy}` : ' (no proxy)'}`;
+            result.style.color = 'var(--success, green)';
+        } else {
+            result.textContent = `Error: ${data.error}`;
+            result.style.color = 'red';
+        }
+    } catch (e) {
+        result.textContent = `Error: ${e.message}`;
+        result.style.color = 'red';
+    }
+    btn.disabled = false;
+}
+
 // State Management
 let state = {
     categories: [],

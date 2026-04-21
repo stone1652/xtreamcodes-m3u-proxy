@@ -19,6 +19,19 @@ logger = logging.getLogger(__name__)
 api_bp = Blueprint('api', __name__)
 
 
+@api_bp.route("/ip")
+def check_ip():
+    """Check outbound IP to verify proxy is active"""
+    import requests as req
+    proxy = os.environ.get('HTTP_PROXY') or os.environ.get('HTTPS_PROXY')
+    proxies = {'http': proxy, 'https': proxy} if proxy else None
+    try:
+        r = req.get('http://api.ipify.org', headers={'User-Agent': 'IPTVSmartersPro'}, proxies=proxies, timeout=10)
+        return jsonify({'ip': r.text.strip(), 'proxy': proxy or None})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 502
+
+
 def get_required_params():
     """Get and validate the required parameters from the request (supports both GET and POST)"""
     # Handle both GET and POST requests
