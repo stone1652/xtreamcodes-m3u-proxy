@@ -4,7 +4,7 @@ async function checkProxy() {
     btn.disabled = true;
     result.textContent = 'Checking...';
     try {
-        const res = await fetch('/ip');
+        const res = await fetch('/get');
         const data = await res.json();
         if (data.ip) {
             result.textContent = `IP: ${data.ip}${data.proxy ? ` via ${data.proxy}` : ' (no proxy)'}`;
