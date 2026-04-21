@@ -6,7 +6,6 @@ import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
-from fake_useragent import UserAgent
 from flask import request
 
 logger = logging.getLogger(__name__)
@@ -14,9 +13,8 @@ logger = logging.getLogger(__name__)
 
 def fetch_api_data(url, timeout=10):
     """Make a request to an API endpoint"""
-    ua = UserAgent()
     headers = {
-        "User-Agent": ua.chrome,
+        "User-Agent": "IPTVSmartersPro",
         "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.5",
         "Connection": "close",
